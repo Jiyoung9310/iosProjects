@@ -8,11 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIPickerViewDelegate{
-    let MAX_ARRAY_NUM = 10
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
+    
+    
+    let MAX_ARRAY_NUM = 7
     let PICKER_VIEW_COLUMN = 1
+    let PICKER_VIEW_HEIGHT:CGFloat = 80
     var imageArray = [UIImage?]()
-    var imageFileName = ["android_robot_logo.jpg", "android8oreo.gif", "image4.png", "lame off.png", "lame on.png", "rocket.jpeg", "image4.png", "lame off.png", "lame on.png", "rocket.jpeg"]
+    var imageFileName = ["1.jpg", "2.jpg", "3.gif", "6.png", "4.png", "5.png", "7.jpeg"]
     
     @IBOutlet var pickerImage: UIPickerView!
     @IBOutlet var lblImageFileName: UILabel!
@@ -35,16 +38,27 @@ class ViewController: UIViewController, UIPickerViewDelegate{
         // Dispose of any resources that can be recreated.
     }
 
-    func numberOfComponeants(in pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return PICKER_VIEW_COLUMN
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return PICKER_VIEW_HEIGHT
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return imageFileName.count
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return imageFileName[row]
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        return imageFileName[row]
+//    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let imageView = UIImageView(image: imageArray[row])
+        imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 150)
+        
+        return imageView
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
